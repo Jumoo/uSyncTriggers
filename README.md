@@ -1,4 +1,4 @@
-#uSyncTriggerCLI 
+# uSyncTriggerCLI 
 
 Command line tool trigger for remote uSync import/exports
 
