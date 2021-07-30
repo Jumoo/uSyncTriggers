@@ -6,7 +6,7 @@ This is the command line tool to be used in tandem with the uSync.Triggers proje
 
 the uSync.Triggers package need to be installed and enabled on an umbraco site for the command line tool to work.
 
-## Installing (of in deplotment YAML)
+## Installing CLI tool (or in deplotment YAML)
 
 ```
 dotnet tool install uSyncTriggerCLI 
