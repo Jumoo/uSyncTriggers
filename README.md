@@ -1,4 +1,6 @@
-Command line trigger for remote uSync import/exports
+#uSyncTriggerCLI 
+
+Command line tool trigger for remote uSync import/exports
 
 This is the command line tool to be used in tandem with the uSync.Triggers project.
 
