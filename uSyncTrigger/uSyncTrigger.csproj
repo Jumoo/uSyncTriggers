@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<ProductName>uSyncTriggerCLI</ProductName>
+
+		<Version>8.9.0</Version>
+		
+		
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>uSyncTriggerCLI</PackageId>
+		<PackAsTool>true</PackAsTool>
+		<PackageOutputPath>../dist</PackageOutputPath>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<Title>uSync Trigger CLI</Title>
+		<Authors>Kevin Jump</Authors>
+		<Company>Jumoo</Company>
+
+		<Description>Command line to remotely trigger uSync Import/Exports</Description>
+
+		<PackageIconUrl></PackageIconUrl>
+		<PackageLicenceExpression>MIT</PackageLicenceExpression>
+		<PackageProjectUrl>https://jumoo.co.uk/uSync</PackageProjectUrl>
+		<PackageTags>Umbraco uSync</PackageTags>
+
+		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggerCLI</RepositoryUrl>
+
+		<PackageReleaseNotes>
+			8.9.0 - Initial release
+		</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+	</ItemGroup>
+	
+</Project>
