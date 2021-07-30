@@ -1,0 +1,45 @@
+name: .NET Tool Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest 
+
+    env:
+      Solution_Name:  uSyncTrigger.sln
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Install .NET Core
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Restore 
+      run: dotnet restore
+      
+    - name: build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: pack 
+      run: dotnet pack --no-restore
+      
+        
+
+
