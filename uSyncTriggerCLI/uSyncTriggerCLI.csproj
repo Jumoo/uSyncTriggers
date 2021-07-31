@@ -27,17 +27,22 @@
 		<Description>Command line to remotely trigger uSync Import/Exports</Description>
 
 		<PackageIconUrl></PackageIconUrl>
-		<PackageLicenceExpression>MIT</PackageLicenceExpression>
 		<PackageProjectUrl>https://jumoo.co.uk/uSync</PackageProjectUrl>
 		<PackageTags>Umbraco uSync</PackageTags>
 
-		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggerCLI</RepositoryUrl>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggers</RepositoryUrl>
 
 		<PackageReleaseNotes>
 			8.9.0 - Initial release
 		</PackageReleaseNotes>
 
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta1.21308.1" />
