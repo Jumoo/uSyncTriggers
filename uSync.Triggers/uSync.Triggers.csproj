@@ -12,7 +12,6 @@
 		<PackageReference Include="uSync.BackOffice.Core" Version="8.9.0" />
 	</ItemGroup>
 
-
 	<ItemGroup>
 	  <Reference Include="System.Web.ApplicationServices" />
 	</ItemGroup>
