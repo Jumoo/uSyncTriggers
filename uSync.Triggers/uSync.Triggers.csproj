@@ -2,11 +2,40 @@
 
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
-		<ProductVersion>8.9.7</ProductVersion>
-		<FileVersion>8.9.7</FileVersion>
-		<AssemblyVersion>8.9.7</AssemblyVersion>
+		
+		<Version>8.9.7</Version>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<PackageId>uSync.Triggers</PackageId>
+		<PackageOutputPath>../dist</PackageOutputPath>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<Title>uSync Triggers</Title>
+		<Authors>Kevin Jump</Authors>
+		<Company>Jumoo</Company>
+
+		<Description>uSync API triggers for Umbraco 8</Description>
+
+		<PackageIconUrl></PackageIconUrl>
+		<PackageProjectUrl>https://jumoo.co.uk/uSync</PackageProjectUrl>
+		<PackageTags>Umbraco uSync</PackageTags>
+
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggers</RepositoryUrl>
+
+		<PackageReleaseNotes>
+			8.9.0 - Initial release
+		</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+		<None Include="readme.txt" Pack="true" PackagePath="" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="UmbracoCms.Web" Version="8.1.1" />
 		<PackageReference Include="uSync.BackOffice.Core" Version="8.9.0" />
