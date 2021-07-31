@@ -13,9 +13,6 @@ namespace uSyncTrigger
 {
     public class uSyncTriggerHandler : IDisposable
     {
-        private const string _triggerBase = "usync/trigger";
-        private static string _importUrl = _triggerBase + "/import" ;
-        private static string _exportUrl = _triggerBase + "/export" ;
 
         private IConsole _console;
 
@@ -29,9 +26,9 @@ namespace uSyncTrigger
 
         public async Task ImportAsync(TriggerOptions options)
         {
-            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{_importUrl}\n");
+            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
 
-            var response = await _client.PostAsJsonAsync(_importUrl, options);
+            var response = await _client.PostAsJsonAsync(uSyncTrigger.ImportUrl, options);
 
             _console.Out.Write($"{response.StatusCode}\n");
 
@@ -44,9 +41,9 @@ namespace uSyncTrigger
 
         public async Task ExportAsync(TriggerOptions options)
         {
-            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{_exportUrl}\n");
+            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
 
-            var response = await _client.PostAsJsonAsync(_exportUrl, options);
+            var response = await _client.PostAsJsonAsync(uSyncTrigger.ImportUrl, options);
 
             _console.Out.Write($"{response.StatusCode}\n");
 
