@@ -2,12 +2,14 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
+
+		<AssemblyName>uSyncTrigger</AssemblyName>
+		<RootNamespace>uSyncTrigger</RootNamespace>
+		
 		<TargetFramework>net5.0</TargetFramework>
 		<ProductName>uSyncTriggerCLI</ProductName>
-
 		<Version>8.9.0</Version>
-		
-		
+
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
@@ -34,6 +36,7 @@
 		<PackageReleaseNotes>
 			8.9.0 - Initial release
 		</PackageReleaseNotes>
+
 	</PropertyGroup>
 
 	<ItemGroup>

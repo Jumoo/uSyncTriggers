@@ -1,52 +1,26 @@
-# uSyncTriggerCLI 
+# uSync Triggers
 
-Command line tool trigger for remote uSync import/exports
+uSync triggers is an add on package for uSync that allows you to remotely trigger usync import or exports. The intention is this will help with CI/CD workflows - where you can trigger the import 
+once your site is up, or after a warm up/slot swap for example. 
 
-This is a dotnet tool that can be used in tandem with the uSync.Triggers project.
+## Installation 
 
-the uSync.Triggers package need to be installed and enabled on an umbraco site for the command line tool to work.
+```
+install-package uSync.Triggers -pre
+```
 
-You can trigger actions directy via CURL commands - so technically you don't need this tool, but it makes the syntax 
-slightly easier to manage, and it pritty prints the output from the tiggers, so you get nicer outputs in your logs. 
 
-## Installing CLI tool (or in deplotment YAML)
+## uSyncTriggerCLI
+
+The triggers package exposes an end point that you can call with CURL commands, to trigger the processes, but for neatness and for nicer formatted results you can use the uSyncTriggerCLI which is a .net tool that you can install (standalone or as part of a build/release script).
 
 ```
 dotnet tool install uSyncTriggerCLI 
 ```
 
-you can also install globally with the `--global` switch.
-
-## Running command 
-
-There are two core commands `Import` and `Export` both take the same suite of options, but they can be called simply with no options other than the username and password ofand url umbraco site you wish to acces.
+You can then trigger an import/export from the command line 
 
 e.g 
 ```
 uSyncTrigger import {siteurl}/umbraco -u user -p password 
 ```
-_The commands take the path to the /umbraco folder and add the rest of the URL to this so you don't need to remember it._
-
-
-### Options
-
-<pre>
-import
-  Run an uSync import on the specified Umbraco instance
-
-Usage:
-  uSyncTrigger [options] import <url>
-
-Arguments:
-  <url>  Umbraco url
-
-Options:
-  -u, --username <username> (REQUIRED)  umbraco username
-  -p, --password <password> (REQUIRED)  umbraco password
-  -f, --folder <folder>                 Folder to run import against
-  -g, --group <group>                   Handler group (e.g settings, content)
-  -s, --set <set>                      Handler set (e.g default)
-  -x, --force                          force import (items imported even if there is no change)
-  -v, --verbose                        verbose output
-  -?, -h, --help                       Show help and usage information# uSyncTriggerCLI
-</pre>
