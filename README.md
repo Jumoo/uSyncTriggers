@@ -47,7 +47,7 @@ in the site's web.config :
 You can then use the CLI tool to call the end point and have it use a generate and use a HMAC signature: 
 
 ```
-usynctrigger import -h [HMACKEY]
+usynctrigger import https://mysite-url/umbraco -h [HMACKEY]
 ```
 
 HMAC auth method will use the default Umbraco user for all operations
