@@ -25,7 +25,6 @@ namespace uSync.Triggers.Auth
 
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
