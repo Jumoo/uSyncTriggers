@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using System;
 using System.CommandLine;
-using System.Linq;
-using System.Net;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -24,34 +25,79 @@ namespace uSyncTrigger
             _client = GetClient(url, username, password);
         }
 
-        public async Task ImportAsync(TriggerOptions options)
+        public async Task<int> ImportAsync(TriggerOptions options)
+            => await RunRemoteCommandAsync(uSyncTrigger.ImportUrl, options);
+
+        public async Task<int> ExportAsync(TriggerOptions options)
+            => await RunRemoteCommandAsync(uSyncTrigger.ExportUrl, options);
+
+        private async Task<int> RunRemoteCommandAsync(string url, TriggerOptions options)
         {
-            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
-
-            var response = await _client.PostAsJsonAsync(uSyncTrigger.ImportUrl, options);
-
-            _console.Out.Write($"{response.StatusCode}\n");
-
-            if (response.IsSuccessStatusCode)
+            _console.Out.Write($"Contacting : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
+            try
             {
+                var sw = Stopwatch.StartNew();
+
+                var response = await _client.PostAsJsonAsync(url, options);
                 var content = await response.Content.ReadAsStringAsync();
-                _console.Out.Write($"{content}\n");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (options.Verbose)
+                    {
+                        ShowVerbose(content);
+                    }
+                    else
+                    {
+                        _console.Out.Write($"{content}\n");
+                    }
+                }
+                else
+                {
+                    _console.Out.Write($"Error      : {response.StatusCode}\n\t{content}\n");
+                }
+
+                sw.Stop();
+                _console.Out.Write($"Completed  : [{response.StatusCode}] {sw.Elapsed.TotalSeconds:N2} Seconds\n");
+                return response.IsSuccessStatusCode ? 0 : 1;
+            }
+            catch (Exception ex)
+            {
+                _console.Out.Write($"Exception  : {ex.Message}");
+                return 1; 
             }
         }
 
-        public async Task ExportAsync(TriggerOptions options)
+        private void ShowVerbose(string content)
         {
-            _console.Out.Write($"Contacting Site : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
+            var results = JsonConvert.DeserializeObject<JArray>(content);
+            _console.Out.Write($"Returned   : {results.Count} changes \n");
 
-            var response = await _client.PostAsJsonAsync(uSyncTrigger.ImportUrl, options);
 
-            _console.Out.Write($"{response.StatusCode}\n");
-
-            if (response.IsSuccessStatusCode)
+            if (results.Count > 0)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                _console.Out.Write($"{content}\n");
+                _console.Out.Write($"{"Change",-7} - {"",-5} - {"itemType",-14} - {"Name"} - {"Message"}\n");
+                _console.Out.Write($"{new string('-', 50)} \n");
+
+                foreach (var result in results)
+                {
+                    var itemType = CleanItemType(result.Value<string>("ItemType"));
+
+                    _console.Out.Write($"{result["Change"],-7} - {result["Success"],-5} - {itemType,-14} - {result["Name"]} - {result["Message"]}\n");
+                }
+
+                _console.Out.Write("\n");
             }
+        }
+
+        private string CleanItemType(string itemType)
+        {
+            if (itemType.IndexOf(',') > 0)
+            {
+                var cleanType = itemType.Substring(0, itemType.IndexOf(','));
+                return cleanType.Substring(cleanType.LastIndexOf('.') + 1);
+            }
+            return itemType;
         }
 
 

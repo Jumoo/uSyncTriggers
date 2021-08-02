@@ -42,7 +42,7 @@ namespace uSyncTrigger
 
         }
 
-        static async Task HandleImport(string url, string username, string password, 
+        static async Task<int> HandleImport(string url, string username, string password, 
             string? folder, string? group, string? set, bool force, bool verbose, IConsole console)
         {
 
@@ -57,11 +57,11 @@ namespace uSyncTrigger
 
             using (var handler = new uSyncTriggerHandler(url, username, password, console))
             {
-                await handler.ImportAsync(options);
+                return await handler.ImportAsync(options);
             }
         }
 
-        static async Task HandleExport(string url, string username, string password,
+        static async Task<int> HandleExport(string url, string username, string password,
             string? folder, string? group, string? set, bool force, bool verbose, IConsole console)
         {
 
@@ -76,7 +76,7 @@ namespace uSyncTrigger
 
             using (var handler = new uSyncTriggerHandler(url, username, password, console))
             {
-                await handler.ExportAsync(options);
+                return await handler.ExportAsync(options);
             }
         }
     }
