@@ -8,5 +8,7 @@
         public bool Force { get; set; }
 
         public bool Verbose { get; set; }
+
+        public string? HmacKey { get; set; }
     }
 }
