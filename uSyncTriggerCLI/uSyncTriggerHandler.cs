@@ -33,7 +33,7 @@ namespace uSyncTrigger
 
         private async Task<int> RunRemoteCommandAsync(string url, TriggerOptions options)
         {
-            _console.Out.Write($"Contacting : {_client.BaseAddress}{uSyncTrigger.ImportUrl}\n");
+            _console.Out.Write($"Contacting : {_client.BaseAddress}{url}\n");
             try
             {
                 var sw = Stopwatch.StartNew();
@@ -49,7 +49,8 @@ namespace uSyncTrigger
                     }
                     else
                     {
-                        _console.Out.Write($"{content}\n");
+                        // dislplay output (remove any string / array boundry)
+                        _console.Out.Write($"{content.Trim('\"', '[', ']')}\n");
                     }
                 }
                 else

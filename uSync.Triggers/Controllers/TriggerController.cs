@@ -173,7 +173,7 @@ namespace uSync.Triggers.Controllers
                 var rootPath = Path.GetFullPath(Path.GetDirectoryName(_uSyncSettings.RootFolder.TrimEnd(Path.DirectorySeparatorChar)));
 
                 if (!absPath.InvariantStartsWith(rootPath))
-                    throw new AccessViolationException($"Cannot access {options.Folder} out of uSync folder limits");
+                    throw new AccessViolationException($"Cannot access {absPath} out of uSync folder limits {rootPath}");
             }
 
             // no folder limits (you can import/export to anywhere on disk!)
