@@ -12,17 +12,27 @@ using System.Threading.Tasks;
 
 namespace uSyncTrigger
 {
-    public class uSyncTriggerHandler : IDisposable
+    public class uSyncTriggerHandler
     {
 
         private IConsole _console;
 
         HttpClient _client;
-        public uSyncTriggerHandler(string url, string username, string password, IConsole console)
+        public uSyncTriggerHandler(string url, string username, string password, string hmacKey, IConsole console)
         {
             _console = console;
 
-            _client = GetClient(url, username, password);
+
+            if (string.IsNullOrWhiteSpace(hmacKey))
+            {
+                _console.Out.Write("[Basic] ");
+                _client = GetClient(url, username, password);
+            }
+            else
+            {
+                _console.Out.Write("[HMAC] ");
+                _client = GetHmacClient(url, hmacKey);
+            }
         }
 
         public async Task<int> ImportAsync(TriggerOptions options)
@@ -103,26 +113,17 @@ namespace uSyncTrigger
 
 
         private HttpClient GetClient(string url, string username, string password)
-        {
-            var credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password));
+            => GetBaseClient(url, new BasicHandler(username, password));
+        private HttpClient GetHmacClient(string url, string hmacKey)
+            => GetBaseClient(url, new HmacHandler(hmacKey));
 
+        private HttpClient GetBaseClient(string url, DelegatingHandler handler)
+        {
             var baseUrl = url.EndsWith('/') ? url : $"{url}/";
-
-            var client = new HttpClient()
-            {
-                BaseAddress = new Uri(baseUrl),
-            };
-
-            client.DefaultRequestHeaders.Authorization
-                = new AuthenticationHeaderValue("Basic", credentials);
-
+            var client = HttpClientFactory.Create(handler);
+            client.BaseAddress = new Uri(baseUrl);
             return client;
-
         }
 
-        public void Dispose()
-        {
-            if (_client != null) _client.Dispose(); 
-        }
     }
 }
