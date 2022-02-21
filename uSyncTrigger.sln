@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uSync.Triggers", "uSync.Tri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uSyncTrigger.Site", "uSyncTrigger.Site\uSyncTrigger.Site.csproj", "{B66947B1-DCEA-40B0-89E3-593F19C51393}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uSyncTriggerCLI", "uSyncTriggerCLI\uSyncTriggerCLI.csproj", "{B4FDA54B-63FD-480E-9AAF-BFA42D7C3900}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B66947B1-DCEA-40B0-89E3-593F19C51393}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B66947B1-DCEA-40B0-89E3-593F19C51393}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B66947B1-DCEA-40B0-89E3-593F19C51393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FDA54B-63FD-480E-9AAF-BFA42D7C3900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FDA54B-63FD-480E-9AAF-BFA42D7C3900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FDA54B-63FD-480E-9AAF-BFA42D7C3900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FDA54B-63FD-480E-9AAF-BFA42D7C3900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
