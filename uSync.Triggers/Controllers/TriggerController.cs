@@ -1,74 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
+using System;
 using System.IO;
 using System.Linq;
-using System.Web.Http;
 
-using Umbraco.Core;
-using Umbraco.Web.Mvc;
-using Umbraco.Web.WebApi;
-using Umbraco.Web.WebApi.Filters;
+using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco.Cms.Web.Common.Controllers;
 
-using uSync.Triggers.Auth;
-
-using uSync8.BackOffice;
-using uSync8.BackOffice.Configuration;
-using uSync8.BackOffice.Services;
-using uSync8.BackOffice.SyncHandlers;
+using uSync.BackOffice;
+using uSync.BackOffice.Configuration;
+using uSync.BackOffice.Services;
+using uSync.BackOffice.SyncHandlers;
+using uSync.Triggers.Config;
 
 namespace uSync.Triggers.Controllers
 {
-    /// <summary>
-    ///  Api Trigger for uSync commands - good for batch jobs and CD/CI commands. 
-    /// </summary>
-    /// <remarks>
-    ///  will not work unless you have a uSync.Triggers setting in web.config 
-    ///  
-    ///  e.g
-    ///   <add key="uSync.Triggers" value="True"/>
-    /// 
-    ///  url to trigger an import : 
-    ///  
-    ///  {siteUrl}/umbraco/usync/trigger/import
-    ///  
-    ///  uses basic auth: so needs username/password sent in header (64 bit encoded)
-    ///  
-    ///  valid actions: 
-    ///  
-    ///    - import 
-    ///    - export 
-    /// 
-    ///  additonal options : 
-    ///  
-    ///    group = which group (e.g settings/content)
-    ///    set = which handler set to use from config
-    ///    folder = where to export/import from 
-    ///    
-    ///   folder will be limited to uSync folder unless you set uSync.TriggerFolderLimits
-    ///   to false in the web.config 
-    ///   
-    ///  	  <add key="uSync.TriggerFolderLimits" value="false"/>
-    ///  
-    /// </remarks>
     [PluginController("uSync")]
-    [uSyncTriggerAuth]
-    [UmbracoApplicationAuthorize(Constants.Applications.Settings)]
+    [Authorize(AuthenticationSchemes = uSyncTriggers.AuthScheme)]
     public class TriggerController : UmbracoApiController
     {
         private readonly uSyncService _uSyncService;
-        private readonly uSyncSettings _uSyncSettings;
-        private readonly SyncFileService _fileService;
+        private readonly uSyncConfigService _uSyncConfigService;
+        private readonly SyncFileService _syncFileService;
+        private readonly IOptionsMonitor<uSyncTriggerConfig> _uSyncTriggerConfig;
 
-        public TriggerController(uSyncService uSyncService,
-            uSyncConfig uSyncConfig,
-            SyncFileService fileService)
+        public TriggerController(
+            IOptionsMonitor<uSyncTriggerConfig> triggerConfig,
+            uSyncService uSyncService, 
+            uSyncConfigService uSyncConfigService, 
+            SyncFileService syncFileService)
         {
             _uSyncService = uSyncService;
-            _uSyncSettings = uSyncConfig.Settings;
-
-            _fileService = fileService;
+            _uSyncConfigService = uSyncConfigService;
+            _syncFileService = syncFileService;
+            _uSyncTriggerConfig = triggerConfig;
         }
 
         [HttpGet]
@@ -81,36 +49,25 @@ namespace uSync.Triggers.Controllers
         [HttpPost]
         public object Import(TriggerOptions options)
         {
-
             EnsureEnabled();
-
             EnsureOptions(options);
 
-            var sw = Stopwatch.StartNew();
-
-            var handlerOptions = new SyncHandlerOptions 
-            { 
+            var handlerOptions = new SyncHandlerOptions
+            {
                 Group = options.Group,
-                Set = options.Set,
+                Set = options.Set
             };
-
 
             var results = _uSyncService.Import(options.Folder, options.Force, handlerOptions);
 
-            sw.Stop();
-
             if (options.Verbose)
-            {
-                return results.Where(x => x.Change != uSync8.Core.ChangeType.NoChange);
-            }
+                return results.Where(x => x.Change != Core.ChangeType.NoChange);
             else
-            {
-                return $"{results.CountChanges()} changes in {results.Count()} items in {sw.ElapsedMilliseconds}ms".AsEnumerableOfOne();
-            }
+                return $"{results.CountChanges()} Changes in {results.Count()} items";
         }
 
         [HttpGet]
-        public string Export(string group = "", string set = "", string folder = "", bool force = false, bool verbose = false)
+        public object Export(string group = "", string set = "", string folder = "", bool force = false, bool verbose = false)
         {
             var options = GetOptions(group, set, folder, force, verbose);
             return Export(options);
@@ -120,80 +77,73 @@ namespace uSync.Triggers.Controllers
         public string Export(TriggerOptions options)
         {
             EnsureEnabled();
-
             EnsureOptions(options);
-
-            var sw = Stopwatch.StartNew();
 
             var handlerOptions = new SyncHandlerOptions
             {
                 Group = options.Group,
-                Set = options.Set,
+                Set = options.Set
             };
-
 
             var result = _uSyncService.Export(options.Folder, handlerOptions);
 
-            sw.Stop();
-
-            return $"{result.Count()} Exported items in {sw.ElapsedMilliseconds}ms";
+            return $"{result.Count()} exported items";
         }
 
-        
-        private void EnsureEnabled()
-        {
-            var triggersEnabled = ConfigurationManager.AppSettings["uSync.Triggers"];
 
-            if (string.IsNullOrWhiteSpace(triggersEnabled) || !bool.Parse(triggersEnabled))
-                throw new HttpResponseException(System.Net.HttpStatusCode.ServiceUnavailable);
+        ////
+        ////
+        ////
+
+        private TriggerOptions GetOptions(string group, string set, string folder ,bool force, bool verbose)
+        {
+            var options = new TriggerOptions
+            {
+                Group = group,
+                Set = set,
+                Folder = folder,
+                Force = force,
+                Verbose = verbose
+            };
+            
+            EnsureOptions(options);
+
+            return options;
         }
 
         private void EnsureOptions(TriggerOptions options)
         {
             if (string.IsNullOrWhiteSpace(options.Group))
-                options.Group = _uSyncSettings.ImportAtStartupGroup;
+                options.Group = _uSyncConfigService.Settings.UIEnabledGroups;
 
             if (string.IsNullOrWhiteSpace(options.Set))
-                options.Set = _uSyncSettings.DefaultSet;
+                options.Set = _uSyncConfigService.Settings.DefaultSet;
 
             if (string.IsNullOrWhiteSpace(options.Folder))
-                options.Folder = _uSyncSettings.RootFolder;
+                options.Folder = _uSyncConfigService.Settings.RootFolder;
 
-            if (options.Group.InvariantEquals("all"))
+            if (options.Group.Equals("all", StringComparison.InvariantCultureIgnoreCase))
                 options.Group = "";
 
+            var folderLimits = _uSyncTriggerConfig.CurrentValue.FolderLimits;
 
-            var folderLimits = ConfigurationManager.AppSettings["uSync.TriggerFolderLimits"];
-
-            var limits = string.IsNullOrWhiteSpace(folderLimits) || bool.Parse(folderLimits);
-
-            if (limits)
+            if (folderLimits)
             {
-                var absPath = _fileService.GetAbsPath(options.Folder);
-                var rootPath = Path.GetFullPath(Path.GetDirectoryName(_uSyncSettings.RootFolder.TrimEnd(Path.DirectorySeparatorChar)));
+                var absPath = _syncFileService.GetAbsPath(options.Folder);
+                var rootPath = Path.GetFullPath(Path.GetDirectoryName(
+                    _uSyncConfigService.Settings.RootFolder.TrimEnd(Path.DirectorySeparatorChar)));
 
-                if (!absPath.InvariantStartsWith(rootPath))
+                if (!absPath.StartsWith(rootPath, StringComparison.InvariantCultureIgnoreCase))
                     throw new AccessViolationException($"Cannot access {absPath} out of uSync folder limits {rootPath}");
             }
 
-            // no folder limits (you can import/export to anywhere on disk!)
-          
+            // else - there are no limits, you can access anywhere on the disk. 
         }
 
-        private TriggerOptions GetOptions(string group, string set, string folder, bool force = false, bool verbose = false)
+        private void EnsureEnabled()
         {
-            var options = new TriggerOptions
-            {
-                Group = string.IsNullOrWhiteSpace(group) ? _uSyncSettings.ImportAtStartupGroup : group,
-                Set = string.IsNullOrWhiteSpace(set) ? _uSyncSettings.DefaultSet : set,
-                Folder = string.IsNullOrWhiteSpace(folder) ? _uSyncSettings.RootFolder : folder,
-                Force = force,
-                Verbose = verbose
-            };
-
-            EnsureOptions(options);
-
-            return options;
+            if (!_uSyncTriggerConfig.CurrentValue.Enabled)
+                throw new NotSupportedException("Triggers is disabled");
         }
 
     }
@@ -203,9 +153,8 @@ namespace uSync.Triggers.Controllers
         public string Group { get; set; }
         public string Set { get; set; }
         public string Folder { get; set; }
-        public bool Force { get; set; }
 
+        public bool Force { get; set; } 
         public bool Verbose { get; set; }
     }
-
 }

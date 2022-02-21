@@ -16,53 +16,24 @@
   -----
 
   n.b : this will not work until you have a uSync.Triggers value
-  in your web.config 
+  in your appsettings.json config file 
   
-  <add key="uSync.Triggers" value="True"/>
+  "uSync" : {
+	"Triggers": {
+		"Enabled" : true,
+		"Key" : "HMAC_KEY_HERE"
+	}
+  }
   
   -----
 
-  With this set you can call import or export, via post or get
+  use can the uSyncTriggerCli tool to generate a hmac key
 
-  You need to supply a valid umbraco username/password 
-  the umbraco user must have access to the settings section 
-  (so can see the uSync tree)
+  PS> dotnet run uSynctrigger seed 
 
+  -----
 
-  {siteUrl}/umbraco/usync/trigger/import
-
-  Valid Actions: 
-      import: /umbraco/usync/trigger/import
-      export: /umbraco/usync/trigger/export
-
-  Additional options (for all actions)
-
-     Group  : Handler group to use (e.g settings / content )
-     
-     Set    : Handler set from the usync8.config file to use
-
-     Folder : location on disk you want to import/export 
-
-         Note: 
-             Folder will only work inside usyncfolder unless
-             you add 
-             <add key="uSync.TriggerFolderLimits" value="false"/>
-             to your web.config. 
+  See the CLI tool for how to run imports/export etc...
 
 
-  CURL Examples: 
 
-    // import default options 
-
-    curl -u user:password http://my.site/umbraco/usync/triggers/import
-
-    // import only settings 
-
-    curl -X POST -d 'group=settings' -u user:password http://my.site/umbraco/usync/triggers/import
-
-    -----
- 
-    For extra security consider restricting /umbraco/usync by IP
-    in your web.config
- 
-    -----

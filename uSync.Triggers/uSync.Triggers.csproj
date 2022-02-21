@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		
-		<Version>8.9.7</Version>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<Version>9.0</Version>
+		
 		<PackageId>uSync.Triggers</PackageId>
 		<PackageOutputPath>../dist</PackageOutputPath>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -16,33 +16,28 @@
 		<Authors>Kevin Jump</Authors>
 		<Company>Jumoo</Company>
 
-		<Description>uSync API triggers for Umbraco 8</Description>
+		<Description>uSync Api triggers for Umbraco 9</Description>
 
 		<PackageIconUrl></PackageIconUrl>
-		<PackageProjectUrl>https://jumoo.co.uk/uSync</PackageProjectUrl>
+		<PackageProjectUrl></PackageProjectUrl>
 		<PackageTags>Umbraco uSync</PackageTags>
+		
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenceFile>LICENSE</PackageLicenceFile>
 
-		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggers</RepositoryUrl>
-
-		<PackageReleaseNotes>
-			8.9.0 - Initial release
-		</PackageReleaseNotes>
+		<PackageReleaseNotes><![CDATA[9.0 Initial release for uSync 9.2.x]]></PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
 		<None Include="readme.txt" Pack="true" PackagePath="" />
-	</ItemGroup>
-	
-	<ItemGroup>
-		<PackageReference Include="UmbracoCms.Web" Version="8.1.1" />
-		<PackageReference Include="uSync.BackOffice.Core" Version="8.9.0" />
+		<None Include="readme.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="System.Web.ApplicationServices" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+		<PackageReference Include="uSync.BackOffice" Version="9.2.0" />
 	</ItemGroup>
 
 </Project>
