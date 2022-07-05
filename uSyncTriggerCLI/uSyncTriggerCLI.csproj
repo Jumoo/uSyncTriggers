@@ -6,7 +6,7 @@
 		<AssemblyName>uSyncTrigger</AssemblyName>
 		<RootNamespace>uSyncTrigger</RootNamespace>
 		
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<ProductName>uSyncTriggerCLI</ProductName>
 		<Version>8.9.0</Version>
 
@@ -31,17 +31,21 @@
 		<PackageTags>Umbraco uSync</PackageTags>
 
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<RepositoryUrl>https://github.com/KevinJump/uSyncTriggers</RepositoryUrl>
 
 		<PackageReleaseNotes>
-			8.9.0 - Initial release
+				<![CDATA[8.9.0 - Initial release
+9.0.0 - uSync 9.0 release
+9.1.0 - uSync 9/10 release]]>
 		</PackageReleaseNotes>
 
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
+		<None Include=".\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>

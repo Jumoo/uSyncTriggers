@@ -2,9 +2,9 @@
 
 Command line tool trigger for remote uSync import/exports
 
-This is a dotnet tool that can be used in tandem with the uSync.Triggers project.
+This is a dotnet tool that can be used in tandem with the uSync.Triggers project
 
-the uSync.Triggers package need to be installed and enabled on an umbraco site for the command line tool to work.
+**the uSync.Triggers package need to be installed and enabled on an umbraco site for the command line tool to work.**
 
 You can trigger actions directy via CURL commands - so technically you don't need this tool, but it makes the syntax 
 slightly easier to manage, and it pritty prints the output from the tiggers, so you get nicer outputs in your logs. 
@@ -15,7 +15,7 @@ slightly easier to manage, and it pritty prints the output from the tiggers, so 
 dotnet tool install uSyncTriggerCLI 
 ```
 
-you can also install globally with the `--global` switch.
+you can also install globally with the `--global` or `-g` switch.
 
 ## Running command 
 

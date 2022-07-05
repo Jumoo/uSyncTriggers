@@ -3,6 +3,8 @@
 uSync Triggers adds an endpoint to your site that you can then call
 without having to login to the umbraco back end.
 
+**This version should be compatible with Umbraco 9 and Umbraco 10.**
+
 ---
 
 note: you need to enable uSync.Triggers in your appsettings.json before 

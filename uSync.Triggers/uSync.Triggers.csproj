@@ -26,7 +26,8 @@
 
 		<PackageLicenceFile>LICENSE</PackageLicenceFile>
 
-		<PackageReleaseNotes><![CDATA[9.0 Initial release for uSync 9.2.x]]></PackageReleaseNotes>
+		<PackageReleaseNotes><![CDATA[9.0 Initial release for uSync 9.2.x
+9.1.0 uSync 9/10 version]]></PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
