@@ -103,13 +103,16 @@ namespace uSyncTrigger
                 console.Out.Write("Seeding a secure HMAC key value:\n\n");
                 console.Out.Write($"Generated Key = [{key}]\n\n");
 
-                console.Out.Write("To use hmac auth add the following to the app settings of the web.config:\n\n");
-                console.Out.Write($"\t<add key=\"uSync.Triggers\" value=\"true\"/>\n");
-                console.Out.Write($"\t<add key=\"uSync.TriggerScheme\" value=\"hmac\"/>\n");
-                console.Out.Write($"\t<add key=\"uSync.TriggerHmacKey\" value=\"{key}\"/>\n\n");
+                console.Out.Write("To use hmac auth add the following to an appsettings.json file:\n\n");
+                console.Out.Write("\"uSync\" : {\n");
+                console.Out.Write("  \"Triggers\": {\n");
+                console.Out.Write("    \"Enabled\" : true\n");
+                console.Out.Write($"    \"Key\" : \"{key}\"\n");
+                console.Out.Write("  }\n");
+                console.Out.Write("}\n\n");
 
                 console.Out.Write("To run trigger command with hmac auth:\n\n");
-                console.Out.Write($"\tdotnet run usynctrigger import -h {key}\n\n");
+                console.Out.Write($"\tdotnet run usynctrigger import <SITE UMBRACO URL> -h {key}\n\n");
             }
 
             return 0;
