@@ -19,7 +19,7 @@ dotnet tool install uSyncTriggerCLI
 
 You can then trigger an import/export from the command line 
 
-# Note : v9 only suppports HMAC auth (at the moment)
+# Note : v9/v10 only suppports HMAC auth (at the moment)
 
 ## HMAC Auth 
 Using the Command line tool , you can use HMAC signiture authentication to trigger the tool (and then you don't have to use a username/password from your setup if you don't want to.)
