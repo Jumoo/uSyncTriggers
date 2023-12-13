@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31515.178
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uSync.Triggers", "uSync.Triggers\uSync.Triggers.csproj", "{49E7A878-626D-4C36-8D29-185EA93E38D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uSyncTriggerCLI", "uSyncTriggerCLI\uSyncTriggerCLI.csproj", "{A44BD27F-E2FD-4E7F-B14C-72D9F64EBF54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uSyncTrigger.Site", "uSyncTrigger.Site\uSyncTrigger.Site.csproj", "{9CF2B449-C845-4A27-8DCB-3CEC4193B9D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{82DAF3EC-4C29-4748-AE11-958BAC9DF243}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
