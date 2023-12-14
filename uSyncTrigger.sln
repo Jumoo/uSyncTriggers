@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uSyncTriggerCLI", "uSyncTri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uSyncTrigger.Site", "uSyncTrigger.Site\uSyncTrigger.Site.csproj", "{9CF2B449-C845-4A27-8DCB-3CEC4193B9D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{517947A2-7E18-43AA-85BC-CC5256E93B2E}"
+	ProjectSection(SolutionItems) = preProject
+		uSyncTriggers.yml = uSyncTriggers.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

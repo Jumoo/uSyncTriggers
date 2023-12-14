@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+    - refs/heads/master
+name: $(BuildDefinitionName)_$(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+jobs:
+- job: Job_1
+  displayName: Build and Publish
+  pool:
+    vmImage: windows-latest
+  steps:
+  - checkout: self
+  - task: NuGetCommand@2
+    displayName: NuGet restore
+    inputs:
+      solution: uSyncTrigger.sln
+  - task: VSBuild@1
+    displayName: Build solution uSyncTrigger.sln
+    inputs:
+      solution: uSyncTrigger.sln
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
+      clean: true
+  - task: NuGetCommand@2
+    displayName: NuGet pack
+    inputs:
+      command: pack
+      searchPatternPack: uSyncTriggerCLI.csproj
+      versioningScheme: byBuildNumber
+      includeReferencedProjects: true
+  - task: NuGetCommand@2
+    displayName: NuGet push
+    inputs:
+      command: push
+      feedPublish: 04ff39b8-72ea-4f85-a4b4-bb11139041b9
+...
