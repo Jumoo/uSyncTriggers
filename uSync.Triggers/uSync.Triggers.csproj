@@ -32,13 +32,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath=""/>
+		<None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="readme.txt" Pack="true" PackagePath="" />
 	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="UmbracoCms.Web" Version="8.15.3" />
-		<PackageReference Include="uSync.BackOffice.Core" Version="8.9.0" />
+		<PackageReference Include="uSync.BackOffice.Core" Version="8.11.7" />
 	</ItemGroup>
 
 	<ItemGroup>
