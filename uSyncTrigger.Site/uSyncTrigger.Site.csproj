@@ -278,19 +278,19 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.8.15.1\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Core.8.15.3\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.15.1\lib\net472\Umbraco.Examine.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.15.3\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder.Embedded, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.15.1\lib\net472\Umbraco.ModelsBuilder.Embedded.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.15.3\lib\net472\Umbraco.ModelsBuilder.Embedded.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.15.1\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.15.3\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.15.1\lib\net472\Umbraco.Web.UI.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.15.3\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="uSync8.BackOffice, Version=8.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uSync.8.9.0\lib\net472\uSync8.BackOffice.dll</HintPath>
@@ -447,6 +447,7 @@
       <Name>uSync.Triggers</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -478,14 +479,14 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.15.1\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.15.1\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.15.1\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.15.1\build\UmbracoCms.targets'))" />
     <Error Condition="!Exists('..\packages\uSync.8.9.0\build\uSync.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.8.9.0\build\uSync.props'))" />
     <Error Condition="!Exists('..\packages\uSync.8.9.0\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.8.9.0\build\uSync.targets'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.15.3\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.15.3\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.15.3\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.15.3\build\UmbracoCms.targets'))" />
   </Target>
   <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
-  <Import Project="..\packages\UmbracoCms.8.15.1\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.15.1\build\UmbracoCms.targets')" />
   <Import Project="..\packages\uSync.8.9.0\build\uSync.targets" Condition="Exists('..\packages\uSync.8.9.0\build\uSync.targets')" />
+  <Import Project="..\packages\UmbracoCms.8.15.3\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.15.3\build\UmbracoCms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
